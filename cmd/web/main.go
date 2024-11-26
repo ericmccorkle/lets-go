@@ -9,7 +9,7 @@ import (
 	"os"
 
 	"github.com/ericmccorkle/lets-go/snippetbox/internal/models"
-
+	"github.com/go-playground/form/v4"
 	_ "github.com/go-sql-driver/mysql"
 )
 
@@ -20,6 +20,7 @@ type application struct {
 	// This allows us to make the SnippetModel object available to handlers
 	snippets      *models.SnippetModel
 	templateCache map[string]*template.Template
+	formDecoder   *form.Decoder
 }
 
 func main() {
@@ -54,11 +55,14 @@ func main() {
 		os.Exit(1)
 	}
 
+	formDecoder := form.NewDecoder()
+
 	// New instance of the application struct, containing dependencies
 	app := &application{
 		logger:        logger,
 		snippets:      &models.SnippetModel{DB: db},
 		templateCache: templateCache,
+		formDecoder:   formDecoder,
 	}
 
 	logger.Info("starting server", "addr", *addr)
