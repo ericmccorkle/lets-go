@@ -8,6 +8,8 @@ import (
 	"net/http"
 	"os"
 
+	_ "github.com/alexedwards/scs/mysqlstore"
+	_ "github.com/alexedwards/scs/v2"
 	"github.com/ericmccorkle/lets-go/snippetbox/internal/models"
 	"github.com/go-playground/form/v4"
 	_ "github.com/go-sql-driver/mysql"
